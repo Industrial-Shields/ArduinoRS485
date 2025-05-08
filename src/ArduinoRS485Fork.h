@@ -22,4 +22,7 @@
 
 #include "RS485.h"
 
+#define HALFDUPLEX 0
+#define FULLDUPLEX 1
+
 #endif

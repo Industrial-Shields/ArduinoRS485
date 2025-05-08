@@ -101,6 +101,11 @@ void RS485Class::end()
 
 int RS485Class::available()
 {
+  if (_transmisionBegun) {
+    _serial->flush();
+    receive();
+    endTransmission();
+  }
   return _serial->available();
 }
 
@@ -122,8 +127,8 @@ void RS485Class::flush()
 size_t RS485Class::write(uint8_t b)
 {
   if (!_transmisionBegun) {
-    setWriteError();
-    return 0;
+    noReceive();
+    beginTransmission();
   }
 
   return _serial->write(b);
